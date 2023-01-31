@@ -1,0 +1,380 @@
+\documentclass[pdf, 10pt, unicode]{beamer}
+\setbeamertemplate{page number in head/foot}[totalframenumber]
+
+\usetheme[numbers,totalnumbers,compress, nologo]{Statmod}
+\usefonttheme[onlymath]{serif}
+\setbeamertemplate{navigation symbols}{}
+
+\usepackage[T2A]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[russian]{babel}
+
+\usepackage{graphicx}
+\usepackage[style=authoryear-ibid,backend=biber]{biblatex}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{bbm}
+\usepackage{caption}
+\usepackage{subfig}
+\usepackage{booktabs}
+\usepackage{multirow}
+
+\usepackage{lipsum}
+
+\newenvironment{localsize}[1]
+{%
+  \clearpage
+  \let\orignewcommand\newcommand
+  \let\newcommand\renewcommand
+  \makeatletter
+  \input{bk#1.clo}%
+  \makeatother
+  \let\newcommand\orignewcommand
+}
+{%
+  \clearpage
+}
+
+\DeclareMathOperator{\RE}{RE}
+\DeclareMathOperator{\runif}{runif}
+\DeclareMathOperator{\Bin}{Bin}
+\DeclareMathOperator{\Var}{Var}
+\newtheorem{remark}{Замечание}
+
+\addbibresource{biblio.bib}
+
+
+
+\usefonttheme[onlymath]{serif}
+
+\usepackage{beamerthemesplit}
+
+\setbeamerfont{institute}{size=\normalsize}
+
+\setbeamercolor{bluetext_color}{fg=blue}
+\newcommand{\bluetext}[1]{{\usebeamercolor[fg]{bluetext_color}#1}}
+\setbeamertemplate{navigation symbols}{}
+
+\setbeamercovered{transparent}
+
+\title[Метод Монте-Карло для малых вероятностей]{Метод Монте-Карло в задачах вычисления малых вероятностей}
+
+\author{ Логинов Андрей Сергеевич, группа 18.Б04-мм }
+
+
+\institute[Санкт-Петербургский Государственный Университет]{%
+    \small
+    Санкт-Петербургский государственный университет\\
+    Прикладная математика и информатика\\
+    Вычислительная стохастика и статистические модели\\
+    \vspace{1.25cm}
+    Отчет по производственной практике}
+
+
+ \date{
+	Санкт-Петербург\\
+	2021г.
+}
+
+\begin{document}
+\maketitle
+
+\begin{frame}{Введение}
+$X$~--- вещественная случайная величина.
+
+Хотим оценивать следущую вероятность: 
+    \begin{equation*}
+        p = \mathbb{P}(X \geq a).
+    \end{equation*}
+     При достаточно больших $a$ вероятность $p\rightarrow 0$. 
+    
+    Событие $\{X \geq a\}$ будем называть \textbf{редким}, а вероятность $p$~--- \textbf{малой}. 
+
+\textbf{Примеры:}
+\begin{itemize}
+    \item Задачи молекулярной динамики
+    \item Цифровые водяные знаки
+    \item Задачи, связанные с выравниванием последовательностей в биоинформатике
+\end{itemize}
+    
+\end{frame}
+
+\begin{frame}{Постановка задачи}
+$\mathbb{S}^{(n)}$~--- множество строк длины $n$ над алфавитом $\mathfrak{A}$ мощности $l$.
+ Рассмотрим отображение $d: \mathbb{S}^{(n)} \times \mathbb{S}^{(n)} \rightarrow \mathbb{Z}^{+}$
+    
+    $s_0 \in \mathbb{S}^{(n)}$~--- фиксированная строка
+    
+    $s \in \mathbb{S}^{(n)}$~--- случайная строка
+    
+ Представляет интерес событие 
+ \begin{equation*}
+     A = \{d(s_0, s) \geq a\}
+ \end{equation*}
+ и его вероятность
+    \begin{equation*}
+        p = \mathbb{P}(A).
+    \end{equation*}
+ Важным частным случаем является расстояние Хэмминга 
+    \begin{equation*}
+        \mathcal{H}(s_0, s) = \sum\limits_{k = 1}^{n} {[s_0^k = s^k]}.
+    \end{equation*}
+Можно легко вычислять $p$ и проверять построенные оценки, которые затем можно будет использовать для более сложных отображений $d$.
+% Можем явно вычислять вероятность 
+ %   \begin{equation*}
+       % \mathbb{P}(\mathcal{H}(s_0, s)\geq a) = \sum\limits_{k = a}^{n}{C_n^k \left( \frac{1}{l} \right)^k\left( \frac{l-1}{l} \right)^{n-k}}.
+  %  \end{equation*}
+\end{frame}
+
+\begin{frame}{Метод Монте-Карло}
+    $(X_i)_{i\in\mathbb{N}}$~--- последовательность независимых одинаково распределенных случайных величин.
+
+\begin{itemize}    
+ \item Для любого $N\in\mathbb{N}$ определена несмещенная оценка $p$:
+        \begin{equation*}
+            \hat{p}_{MC} = \frac{1}{N} \sum\limits_{k = 1}^{N}{[X_i \geq a]}.
+        \end{equation*}
+ \item Дисперсия оценки: 
+    \begin{equation*}
+        \mathbb{D}\hat{p}_{MC} = \frac{p(1-p)}{N}.
+    \end{equation*}
+ \item Относительная ошибка: 
+    \begin{equation*}
+        \RE(\hat{p}_{MC}) = \frac{\sqrt{\mathbb{D}\hat{p}_N}}{p} = \sqrt{\frac{1-p}{Np}}.
+    \end{equation*}
+\end{itemize}
+    
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%5555
+
+\begin{frame}{Метод Монте-Карло}
+    \begin{itemize}
+		
+		\itemДля относительной ошибки $\varepsilon$ получаем требуемый порядок объема выборки:
+			\begin{equation*}
+				N\sim \frac{1-p}{\varepsilon^2p}.
+			\end{equation*}
+        %\item Тогда, например, для оценки вероятности 
+        %\begin{equation*}
+        %    \mathbb{P}(\mathcal{H}(s_0, s) \geq 15) = 3.81\cdot 10^{-6}, 
+        %\end{equation*}
+        \item Например, хотим оценить вероятность 
+        \begin{equation*}
+            p_1 = \mathbb{P}(\mathcal{H}(s_0, s)\geq a) = \sum\limits_{k = a}^{n}{C_n^k \left( \frac{1}{l} \right)^k\left( \frac{l-1}{l} \right)^{n-k}}.
+        \end{equation*}
+        В случае, когда $s_0, s_1 \in \mathbb{S}^{20}, \text{ } l = 4$, получается $p_1 = 3.81\cdot10^{-6}$. Чтобы оценить такую вероятность с относительной оишбкой $\varepsilon = 0.01$, потребуется $N\sim 10^9$.
+        \item Актуальна задача уменьшения дисперсии при фиксированном объеме выборки. 
+        \end{itemize}
+    
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Метод существенной выборки}
+    Пусть $\mathcal{G}$, $\mathcal{Q}$~--- распределения на $\mathbb{S}^{(n)}$: 
+    \begin{itemize}
+        \item $g$, $q$~--- их плотности,
+        \item $\mathcal{G} \prec \mathcal{Q}$.
+    \end{itemize}
+    %Пусть $\mathcal{G}$~--- равномерное распределение на множестве $\mathbb{S}^{(n)}$, $g$~--- его плотность относительно считающей меры, а $\mathcal{Q}$~--- еще одно распределение на $\mathbb{S}^{(n)}$, его плотность~--- $q$. 
+    
+    Рассмотрим выборку $s_1, \ldots, s_N\sim \mathcal{Q}$ и фиксированную строку $s_0\in\mathbb{S}^{(n)}$. 
+    
+    Оценка вероятности $p = \mathbb{P}(d(s_0, s)\geq a) = \mathbb{P}(A)$ по методу существенной выборки:
+    \begin{equation*}
+        \hat{p}_{IS} = \frac{1}{N}\sum\limits_{i = 1}^{N}{\frac{g(s_i)}{q(s_i)}\mathbbm{1}_A(s_i)}.
+    \end{equation*}
+    
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Существенная выборка: моделирующее распределение}
+    Свойства оценки по методу существенной выборки зависят от выбора моделирующего распределения $\mathcal{Q}$. 
+    \begin{itemize}
+        \item Для расстояния Хэмминга можно использовать $\mathcal{Q}$ такое, что $\forall s \sim \mathcal{Q}$
+        \begin{equation*}
+            s^j = \begin{cases}
+                s_0^j \text{ с вероятностью } p^*\\
+                x \in \mathfrak{A}\setminus \{s_0^j\} \text{ с вероятностью }(1-p^*) / l,  
+            \end{cases}
+        \end{equation*}
+    где $p^*$~--- параметр.
+    
+    Однако, такую плотность не получится обобщить для для других отображений $d$.
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}{Существенная выборка: моделирующее распределение}
+
+\begin{itemize}
+    \item В общем случае будем использовать распределение с плотностью вида 
+    \begin{equation*}
+        q(s) = \frac{1}{Z} \tilde{q}(s) = \frac{1}{Z}g(s)w(s), 
+    \end{equation*}
+    где $Z$~--- нормализующая константа, $w(s)$~--- весовая функция. 
+    
+    Будем рассматривать весовые функции вида 
+    \begin{equation*}
+        w(s) = w(d(s_0, s)) = \exp\{\gamma\cdot d(s_0,s)\}, 
+    \end{equation*}
+    где $\gamma$~--- положительный параметр. 
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Алгоритм Метрополиса-Гастингса}
+
+
+\begin{itemize}
+
+\item {\large Для построения $\hat{p}_{IS}$ нужно уметь моделировать некоторое распределение $\mathcal{Q}$, что может быть весьма затруднительно.} 
+
+
+\item {\large Алгоритм Метрополиса-Гастингса~\parencite{Hastings_1970} позволяет строить цепь Маркова, стационарное распределение которой есть нужное $\mathcal{Q}$.}
+
+\item {\largeЧтобы построить такую марковскую цепь, достаточно знать плотность распределения $\mathcal{Q}$ с точностью до нормализующей константы.} 
+\end{itemize}
+
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Алгоритм Метрополиса-Гастингса: практические соображения}
+\begin{itemize}
+    %\item Поскольку важно только стационарное распределение получаемой цепи Маркова, то можно не принимать во внимание часть траектории, на которой накопленные средние не стабилизировались.
+    \item Важно только стационарное распределение получаемой цепи Маркова.
+    
+    Определять нужную часть траектории можно по стабилизации накопленных средних.
+    \item Выборку получаем с помощью цепи Маркова, поэтому ее элементы зависимы. 
+    
+    Прореживанием траектории можно добиться снижения автокорреляции. 
+\end{itemize}
+
+
+    
+\end{frame}
+
+
+
+\begin{frame}{Нормализующая константа}
+\begin{itemize}
+    \item С учетом того, что моделирующая плотность имеет вид $q(s) = \frac{1}{Z}g(s)w(s)$, оценка $\hat{p}_{IS}$ принимает вид 
+    \begin{equation*}\label{eqn:iswp}
+        \hat{p}_{IS} = \frac{1}{N}\sum\limits_{i = 1}^{N}{\mathbbm{1}_{A}(s_i)\frac{Z}{w(s_i)}}.
+    \end{equation*}
+    
+    \item Нормализующую константу $Z$ можно оценить:
+    \begin{equation*}\label{eqn:w_est}
+       \hat{Z} = \left(\frac{1}{N}\sum\limits_{i = 1}^N{(w(s_i))^{-1}}\right)^{-1}.
+    \end{equation*}
+    
+    \item Тогда можно переписать оценку
+    \begin{equation*}\label{eqn:isw}
+        \hat{p}_{IS} = \frac{\sum\limits_{i = 1}^{N}\mathbbm{1}_{A}(s_i)(w(s_i))^{-1}}{\sum\limits_{i = 1}^{N}(w(s_i))^{-1}}.
+\end{equation*}
+\end{itemize}
+    
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5
+
+
+
+\begin{frame}{Оценка дисперсии}
+\begin{itemize}
+\item В случае независимой выборки дисперсию $\hat{p}_{IS}$ можно найти по формуле~\parencite{Owen2020}:
+    \begin{equation*}
+        \Var(\hat{p_{IS}}) = \frac{1}{N^2}\sum\limits_{i=1}^{N}{\left( \frac{\mathbbm{1}_A(s_i)g(s_i)}{q(s_i)} - \hat{p}_{IS} \right)^2}.
+    \end{equation*}
+
+\item Дисперсию оценки вдоль траектории марковской цепи можно найти с помощью метода batch means~\parencite{Jones2006}:
+\begin{equation*}
+     \Var(\hat{p}_{IS}) = \frac{v}{(u-1)N}\sum\limits_{j = 1}^{u}{(Y_j - \hat{p}_{IS})^2}, 
+ \end{equation*}
+    где $u\cdot v = N$, а $Y_j$ находится по формуле:
+    \begin{equation*}\label{eqn:batch}
+    Y_j = \frac{1}{v}\sum\limits_{i = (j - 1)v}^{j v - 1}\mathbbm{1}_{A}(x_i)\frac{g(s_i)}{q(s_i)}, 
+\end{equation*}
+\end{itemize}    
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Построенные оценки}
+    Были построены:
+    \begin{itemize}
+        \item оценки по методу Монте-Карло $\hat{p}_{MC}$,
+        \item оценки по методу существенной выборки для повторных независимых выборок $\hat{p}_{IS}$,
+        \item оценки по методу существенной выборки, использующие алгоритм Метрополиса-Гастингса, с известной и неизвестной нормализующей константой $\hat{p}_{MHK}$ и $\hat{p}_{MHU}$,
+        \item оценки по методу существенной выборки, использующие алгоритм Метрополиса-Гастингса с предложенными модификациями, с известной и неизвестной нормализующей константой $\hat{p}_{MHMK}$ и $\hat{p}_{MHMU}$,
+    \end{itemize}
+    для событий $\{\mathcal{H}(s_0, s \geq k)\}$, $s_0, s \in \mathbb{S}^{(20)}$, $l = 4$, $k\in \{5, 10, 15, 20\}$, вычислены относительные ошибки. 
+    \begin{remark}Для оценок $\hat{p}_{MHMK}$ и $\hat{p}_{MHMU}$ под объемом выборки понимается длина цепи до прореживания.
+    \end{remark}
+     
+\end{frame}
+
+\begin{frame}{Численные результаты: фиксированный объем выборки}
+    
+Для оценок, построенных по одинаковому объему выборки $N = 10^5$: 
+
+
+\begin{table}[]
+\begin{tabular}{@{}ccccc@{}}
+\toprule
+$p$         & 0.585158 & 0.013864 & $3.81\cdot 10^{-6}$ & $9.10\cdot 10^{-13}$ \\ \midrule
+$\RE_{MC}$   & 0.002663 & 0.026538 & 1.337253            & -                    \\
+$\RE_{IS}$   & 0.004608 & 0.005153 & 0.005981            & 0.004231             \\
+$\RE_{MHK}$  & 0.012064 & 0.028712 & 0.031248            & 0.092181             \\
+$\RE_{MHU}$  & 0.0120   & 0.038373 & 1.043263            & 18.864911            \\
+$\RE_{MHMK}$ & 0.038793 & 0.086880 & 0.086781            & 0.182050             \\
+$\RE_{MHMU}$ & 0.039509 & 0.103369 & 2.825464            & 97.941459            \\ \bottomrule
+\end{tabular}
+\end{table}
+
+\begin{itemize}
+\item Относительные ошибки оценок $\hat{p}_{MHK}$ и $\hat{p}_{MHMK}$ при уменьшении $p$ растут намного медленнее оценок $\hat{p}_{MC}$, а относительная ошибка $\hat{p}_{IS}$ остается практически неизменной. 
+
+\itemБыстрый рост $\RE_{MHU}$ и $\RE_{MHMU}$ при уменьшении $p$ связан с неточностью оценки $Z$.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Доверительные интервалы}
+Доверительные интревалы для $\hat{p}_{MC}$ и $\hat{p}_{IS}$.
+\begin{table}[]
+\begin{tabular}{@{}ccc@{}}
+\toprule
+$p$      & $CI_{MC}$               & $CI_{IS}$               \\ \midrule
+0.585158 & $(0.581380 ; 0.589419)$ & $(0.577726 ; 0.591639)$ \\
+0.013864 & $(0.012945 ; 0.014856)$ & $(0.013679 ; 0.014047)$ \\
+$3.81\cdot 10^{-6}$  & $(-1.09\cdot 10^{-5} ; 1.65\cdot 10{-5})$ & $(3.75\cdot^{-6} ; 3.87\cdot 10^{-6})$      \\
+$9.10\cdot 10^{-13}$ & $(0 ; 0)$                                 & $(9.00\cdot 10^{-13} ; 9.20\cdot 10^{-13})$ \\ \bottomrule
+\end{tabular}
+\end{table}
+    \begin{itemize}
+        \item Доверительные интервалы оценок по методу существенной выборки содержат $p$ для всех $k$.
+        \item При увеличении $k$ доверительные интрвалы оценок по методу Монте-Карло перестают накрывать истинное значение $p$.
+    \end{itemize}
+
+\end{frame}
+
+\begin{frame}{Убывание относительной ошибки}
+    Сравнение скорости убывания относительной ошибки оценок $\hat{p}_{MC}$, $\hat{p}_{IS}$, $\hat{p}_{MHK}$, $\hat{p}_{MHU}$ при увеличении объема выборки для вероятности события $\mathcal{H}(s_0,s)\geq 12$, $s_0, s \in \mathbb{S}^{(20)}$, $l = 4$.
+
+\end{frame}
+
+\begin{frame}{Заключение}
+Что сделано:
+\begin{itemize}
+    \item Были построены оценки по методу существенной выборки с предложенным простым для моделирования распределения и с применением алгоритма Метрополиса-Гастингса.
+    \item Проведено сравнение относительных ошибок при фиксированном объеме выборки и разных вероятностях с оценками по методу Монте-Карло.
+    \item Проведено сравнение скоростей убывания относительной ошибки с ростом объема выборки. 
+\end{itemize}
+
+Что нужно сделать:
+\begin{itemize}
+    \item Построить доверительные интервалы для полученных оценок.
+    \item Научиться более точно оценивать нормализующую константу $Z$ вдоль траектории марковской цепи.
+\end{itemize}
+    
+\end{frame}
+\end{document}

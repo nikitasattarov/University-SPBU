@@ -1,0 +1,131 @@
+---
+title: 'task_3'
+output: html_document
+---
+
+```{r}
+library(dplyr)
+library(lattice)
+
+df <- read.table("https://www.statmod.ru/wiki/_media/study:fall2020:dataprog:creditcard.txt", header = TRUE, sep = ";")
+df.card <- filter(df, card=="yes")
+```
+
+Распределение данных по возрасту.
+```{r}
+# Заработок относительно возраста.
+xyplot(income~age, data=df, type=c("g", "p", "smooth"), xlim=c(16,80), ylim=c(1,6),
+       lwd=3)
+# Отношение расходов к заработку относительно возраста.
+xyplot(share~age, data=df.card, type=c("g", "p", "smooth"), xlim=c(16,80), ylim=c(0,0.2),
+       lwd=3)
+# Отношение расходов относительно возраста.
+xyplot(expenditure~age, data=df.card, type=c("g", "p", "smooth"), xlim=c(16,80), ylim=c(0,400),
+       lwd=3)
+
+# Плотность возраста людей, разделенных по наличию кредитной карты.
+df %>% group_by(card) %>% summarise(mean.age=mean(age), median.age = median(age),)
+densityplot(~age, data=df, groups=card, plot.points = FALSE,
+            auto.key=list(space="top", columns=2, text=c("don't get card", "get card")))
+# Плотность возраста людей, разделенных по числу штрафов.
+df %>% filter(reports < 5) %>% group_by(reports) %>% summarise(mean.age=mean(age), median.age = median(age))
+densityplot(~age, data=df %>% filter(reports < 5), groups=reports, plot.points = FALSE, 
+            auto.key=list(space="top", columns=5))
+# Плотность возраста людей, разделенных по наличию собственного дома. 
+df %>% group_by(owner) %>% summarise(mean.age=mean(age), median.age = median(age))
+densityplot(~age, data=df, groups=owner, plot.points = FALSE, 
+            auto.key=list(space="top", columns=2, text=c("don't own home", "own home")))
+# Плотность возраста людей, разделенных типу работы. 
+df %>% group_by(selfemp) %>% summarise(mean.age=mean(age), median.age = median(age))
+densityplot(~age, data=df, groups=selfemp, plot.points = FALSE,
+            auto.key=list(space="top", columns=2, text=c("not selfemp", "selfemp")))
+# Плотность возраста людей, разделенных по числу финансово зависимых от них людей. 
+df %>% group_by(dependents) %>% summarise(mean.age=mean(age), median.age = median(age))
+densityplot(~age, data=df, groups=dependents, plot.points = FALSE,
+            auto.key=list(space="top", columns=4))
+# Плотность возраста людей, разделенных по числу основных кредитных карт. 
+df %>% group_by(majorcards) %>% summarise(mean.age=mean(age), median.age = median(age))
+densityplot(~age, data=df, groups=majorcards, plot.points = FALSE,
+            auto.key=list(space="top", columns=2))
+# Плотность возраста людей, разделенных по числу активных кредитных аккаунтов. 
+df %>% filter(active < 6) %>% group_by(active) %>% summarise(mean.age=mean(age), median.age = median(age))
+densityplot(~age, data=df %>% filter(active < 6), groups=active, plot.points = FALSE, 
+            auto.key=list(space="top", columns=3))
+```
+
+Распределение данных по заработку.
+```{r}
+# Возраст относительно заработка.
+xyplot(age~income, data=df, type=c("g", "p", "smooth"), xlim=c(0,10), ylim=c(17,80),
+       lwd=3)
+# Отношение расходов к заработку относительно заработка.
+xyplot(share~income, data=df.card, type=c("g", "p", "smooth"), xlim=c(0,10), ylim=c(0,0.2),
+       lwd=3)
+# Отношение расходов относительно заработка.
+xyplot(expenditure~income, data=df.card, type=c("g", "p", "smooth"), xlim=c(0,10), ylim=c(0,1000),
+       lwd=3)
+
+# Плотность заработка людей, разделенных по наличию кредитной карты.
+df %>% group_by(card) %>% summarise(mean.income=mean(income), median.income = median(income))
+densityplot(~income, data=df, groups=card, plot.points = FALSE, 
+            auto.key=list(space="top", columns=2, text=c("don't get card", "get card")))
+# Плотность заработка людей, разделенных по числу штрафов.
+df %>% filter(reports < 5) %>% group_by(reports) %>% summarise(mean.age=mean(income), median.age = median(income))
+densityplot(~income, data=df %>% filter(reports < 5), groups=reports, plot.points = FALSE, 
+            auto.key=list(space="top", columns=5))
+# Плотность заработка людей, разделенных по наличию собственного дома. 
+df %>% group_by(owner) %>% summarise(mean.income=mean(income), median.income = median(income))
+densityplot(~income, data=df, groups=owner, plot.points = FALSE,
+            auto.key=list(space="top", columns=2, text=c("don't own home", "own home")))
+# Плотность заработка людей, разделенных типу работы. 
+df %>% group_by(selfemp) %>% summarise(mean.income=mean(income), median.income = median(income))
+densityplot(~income, data=df, groups=selfemp, plot.points = FALSE,
+            auto.key=list(space="top", columns=2, text=c("not selfemp", "selfemp")))
+# Плотность заработка людей, разделенных по числу финансово зависимых от них людей. 
+df %>% group_by(dependents) %>% summarise(mean.income=mean(income), median.income = median(income))
+densityplot(~income, data=df, groups=dependents, plot.points = FALSE,
+            auto.key=list(space="top", columns=4))
+# Плотность заработка людей, разделенных по числу основных кредитных карт. 
+df %>% group_by(majorcards) %>% summarise(mean.income=mean(income), median.income = median(income))
+densityplot(~income, data=df, groups=majorcards, plot.points = FALSE,
+            auto.key=list(space="top", columns=2))
+# Плотность заработка людей, разделенных по числу активных кредитных аккаунтов. 
+df %>% filter(active < 6) %>% group_by(active) %>% summarise(mean.income=mean(income), median.income = median(income))
+densityplot(~income, data=df %>% filter(active < 6), groups=active, plot.points = FALSE, 
+            auto.key=list(space="top", columns=3))
+```
+
+Зависимость выдачи карты от других признаков.
+```{r}
+# Плотность выдачи карты, разделенная по числу отрицательных отчетов.
+dfnew <- df %>% group_by(card, reports) %>% summarise(n=n(), ratio = 0)
+dfnew[dfnew$card == "no",]$ratio <- mutate(dfnew[dfnew$card == "no",], ratio = n / sum(n))$ratio
+dfnew[dfnew$card == "yes",]$ratio <- mutate(dfnew[dfnew$card == "yes",], ratio = n / sum(n))$ratio
+barchart(ratio~reports, data = dfnew, group=card, horiz=FALSE, xlab = "reports", ylab ="ratio",
+         auto.key=list(space="top", columns=2, text=c("don't get card", "get card")))
+
+# Плотность выдачи карты, разделенная по наличию собственного дома.
+dfnew <- df %>% group_by(owner, card) %>% summarise(n=n(), ratio = 0)
+dfnew[1:2,]$ratio <- mutate(dfnew[1:2,], ratio = n / sum(n))$ratio
+dfnew[3:4,]$ratio <- mutate(dfnew[3:4,], ratio = n / sum(n))$ratio
+barchart(ratio~card|owner, data = dfnew, xlab = "card", ylab ="ratio",
+         strip=strip.custom(factor.levels=c("not owner","owner")))
+
+# Плотность выдачи карты, разделенная по типу работы.
+dfnew <- df %>% group_by(selfemp, card) %>% summarise(n=n(), ratio = 0)
+dfnew[1:2,]$ratio <- mutate(dfnew[1:2,], ratio = n / sum(n))$ratio
+dfnew[3:4,]$ratio <- mutate(dfnew[3:4,], ratio = n / sum(n))$ratio
+barchart(ratio~card|selfemp, data = dfnew, xlab = "card", ylab ="ratio",
+         strip=strip.custom(factor.levels=c("not selfemp","selfemp")))
+
+# Плотность выдачи карты, разделенная по числу финансово зависимых от клиента людей.
+dfnew <- df %>% group_by(card, dependents) %>% summarise(n=n(), ratio = 0)
+dfnew[dfnew$card == "no",]$ratio <- mutate(dfnew[dfnew$card == "no",], ratio = n / sum(n))$ratio
+dfnew[dfnew$card == "yes",]$ratio <- mutate(dfnew[dfnew$card == "yes",], ratio = n / sum(n))$ratio
+barchart(ratio~dependents, data = dfnew, group=card, horiz=FALSE, xlab = "dependents", ylab ="ratio",
+         auto.key=list(space="top", columns=2, text=c("don't get card", "get card")))
+
+```
+
+
+

@@ -1,0 +1,44 @@
+\babel@toc {russian}{}
+\contentsline {section}{\numberline {1}Цепь Маркова с дискретным временем}{1}{section.1}%
+\contentsline {subsection}{\numberline {1.1}Определение}{1}{subsection.1.1}%
+\contentsline {subsection}{\numberline {1.2}Переходная матрица и однородные цепи}{1}{subsection.1.2}%
+\contentsline {subsection}{\numberline {1.3}Конечномерные распределения и матрица перехода за n шагов}{2}{subsection.1.3}%
+\contentsline {subsection}{\numberline {1.4}Типы состояний}{2}{subsection.1.4}%
+\contentsline {subsection}{\numberline {1.5}Примеры}{2}{subsection.1.5}%
+\contentsline {section}{\numberline {2}Цепь Маркова с непрерывным временем}{2}{section.2}%
+\contentsline {subsection}{\numberline {2.1}Определение}{2}{subsection.2.1}%
+\contentsline {subsection}{\numberline {2.2}Матрица переходных функций и уравнение Колмогорова "--~ Чепмена}{3}{subsection.2.2}%
+\contentsline {subsection}{\numberline {2.3}Матрица интенсивностей и дифференциальные уравнения Колмогорова}{3}{subsection.2.3}%
+\contentsline {subsection}{\numberline {2.4}Свойства матриц P и Q}{3}{subsection.2.4}%
+\contentsline {subsection}{\numberline {2.5}Граф переходов, связность и эргодические цепи Маркова}{4}{subsection.2.5}%
+\contentsline {subsection}{\numberline {2.6}Примеры}{4}{subsection.2.6}%
+\contentsline {section}{\numberline {3}Основное кинетическое уравнение}{5}{section.3}%
+\contentsline {subsection}{\numberline {3.1}Функции Ляпунова для основного кинетического уравнения}{5}{subsection.3.1}%
+\contentsline {subsubsection}{\numberline {3.1.1}Примеры функций Моримото ${\displaystyle H_{h}(p)}$}{5}{subsubsection.3.1.1}%
+\contentsline {section}{\numberline {4}Практическое применение}{6}{section.4}%
+\babel@toc {russian}{}
+\babel@toc {russian}{}
+\babel@toc {russian}{}
+\babel@toc {english}{}
+\babel@toc {russian}{}
+\babel@toc {russian}{}
+\babel@toc {english}{}
+\babel@toc {russian}{}
+\babel@toc {english}{}
+\babel@toc {english}{}
+\babel@toc {english}{}
+\babel@toc {russian}{}
+\babel@toc {english}{}
+\babel@toc {russian}{}
+\babel@toc {english}{}
+\babel@toc {english}{}
+\babel@toc {english}{}
+\babel@toc {russian}{}
+\babel@toc {english}{}
+\babel@toc {russian}{}
+\babel@toc {russian}{}
+\babel@toc {english}{}
+\babel@toc {russian}{}
+\babel@toc {russian}{}
+\babel@toc {russian}{}
+\babel@toc {russian}{}

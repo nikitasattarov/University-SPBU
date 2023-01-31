@@ -1,0 +1,54 @@
+\documentclass{article}
+%\usepackage{xcolor}
+\usepackage[linesnumbered,ruled,vlined]{algorithm2e}
+
+\title{Algorithm template with Function}
+\author{Roy}
+
+%%% Coloring the comment as blue
+%\newcommand\mycommfont[1]{\footnotesize\ttfamily\textcolor{blue}{#1}}
+\SetCommentSty{mycommfont}
+
+
+
+
+\begin{document}
+\maketitle
+
+\begin{algorithm}[H]
+
+  \DontPrintSemicolon
+
+  \SetKwFunction{FCalc}{$calculate\_definite\_integral\_of\_f$}
+
+  \SetKwProg{Fn}{Def}{:}{}
+  \SetKwProg{FWhile}{While}{:}{}
+  \SetKwProg{FIf}{If}{:}{}
+  \SetKwProg{FElse}{Else}{:}{}
+  \Fn{\FCalc{$f$, $initial\_step\_size$}}{
+        ''''''\;
+        This algorithm calculates the definite integral of a function from 0 to 1, adaptevily, by choosing smaller steps near problematic points.\;
+        ''''''\;
+        x = 0.0\;
+        h = initial\_step\_size\;
+        accumulator = 0.0\;
+      	\FWhile{{$x < 1.0$}}{
+        	\FIf{{$x + h > 1.0$}}{
+        		h = 1.0 - x    $\#$At end of unit interval, adjust last step to end at 1.\;
+        	}
+        	\FIf{{error\_too\_big\_in\_quadrature\_of\_f\_over\_range(f, [x, x + h])}}{
+        		h = make\_h\_smaller(h)\;
+		}
+		\FElse{{$ $}}{
+			accumulator += quadrature\_of\_f\_over\_range(f, [x, x + h])\;
+			x += h\;
+			\FIf{{error\_too\_small\_in\_quadrature\_of\_over\_range(f, [x, x + h])}}{
+				h = make\_h\_larger(h) $\#$Avoid wasting time on tiny steps.
+			}
+		}
+	}
+        \KwRet accumulator\;
+  }
+\end{algorithm}
+
+\end{document}

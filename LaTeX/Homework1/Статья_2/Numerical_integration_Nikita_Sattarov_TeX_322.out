@@ -1,0 +1,14 @@
+\BOOKMARK [1][-]{section.1}{History}{}% 1
+\BOOKMARK [1][-]{section.2}{Reasons for numerical integration}{}% 2
+\BOOKMARK [1][-]{section.3}{Methods for one-dimensional integrals}{}% 3
+\BOOKMARK [2][-]{subsection.3.1}{Quadrature rules based on interpolating functions}{section.3}% 4
+\BOOKMARK [2][-]{subsection.3.2}{Generalized midpoint rule formula}{section.3}% 5
+\BOOKMARK [2][-]{subsection.3.3}{Adaptive algorithms}{section.3}% 6
+\BOOKMARK [2][-]{subsection.3.4}{Extrapolation methods}{section.3}% 7
+\BOOKMARK [2][-]{subsection.3.5}{Conservative \(a priori\) error estimation}{section.3}% 8
+\BOOKMARK [2][-]{subsection.3.6}{Integrals over infinite intervals}{section.3}% 9
+\BOOKMARK [1][-]{section.4}{Multidimensional integrals}{}% 10
+\BOOKMARK [2][-]{subsection.4.1}{Monte Carlo}{section.4}% 11
+\BOOKMARK [2][-]{subsection.4.2}{Sparse grids}{section.4}% 12
+\BOOKMARK [2][-]{subsection.4.3}{Bayesian Quadrature}{section.4}% 13
+\BOOKMARK [1][-]{section.5}{Connection with differential equations}{}% 14

@@ -1,0 +1,39 @@
+\babel@toc {english}{}
+\contentsline {section}{\numberline {1}History}{2}{section.1}%
+\contentsline {section}{\numberline {2}Reasons for numerical integration}{2}{section.2}%
+\contentsline {section}{\numberline {3}Methods for one-dimensional integrals}{3}{section.3}%
+\contentsline {subsection}{\numberline {3.1}Quadrature rules based on interpolating functions}{3}{subsection.3.1}%
+\contentsline {subsection}{\numberline {3.2}Generalized midpoint rule formula}{4}{subsection.3.2}%
+\contentsline {subsection}{\numberline {3.3}Adaptive algorithms}{5}{subsection.3.3}%
+\contentsline {subsection}{\numberline {3.4}Extrapolation methods}{5}{subsection.3.4}%
+\contentsline {subsection}{\numberline {3.5}Conservative (a priori) error estimation}{6}{subsection.3.5}%
+\contentsline {subsection}{\numberline {3.6}Integrals over infinite intervals}{6}{subsection.3.6}%
+\contentsline {section}{\numberline {4}Multidimensional integrals}{7}{section.4}%
+\contentsline {subsection}{\numberline {4.1}Monte Carlo}{7}{subsection.4.1}%
+\contentsline {subsection}{\numberline {4.2}Sparse grids}{7}{subsection.4.2}%
+\contentsline {subsection}{\numberline {4.3}Bayesian Quadrature}{7}{subsection.4.3}%
+\contentsline {section}{\numberline {5}Connection with differential equations}{7}{section.5}%
+\babel@toc {english}{}
+\babel@toc {english}{}
+\babel@toc {english}{}
+\babel@toc {english}{}
+\babel@toc {english}{}
+\babel@toc {english}{}
+\babel@toc {english}{}
+\babel@toc {english}{}
+\babel@toc {english}{}
+\babel@toc {english}{}
+\babel@toc {english}{}
+\babel@toc {english}{}
+\babel@toc {english}{}
+\babel@toc {english}{}
+\babel@toc {english}{}
+\babel@toc {english}{}
+\babel@toc {english}{}
+\babel@toc {english}{}
+\babel@toc {english}{}
+\babel@toc {english}{}
+\babel@toc {english}{}
+\babel@toc {english}{}
+\babel@toc {english}{}
+\babel@toc {english}{}

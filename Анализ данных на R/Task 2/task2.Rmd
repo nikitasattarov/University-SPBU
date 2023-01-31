@@ -1,0 +1,65 @@
+---
+title: "task_2"
+output:
+  html_document: default
+---
+```{r}
+library(dplyr)
+library(ggplot2)
+library(gridExtra)
+```
+
+
+```{r}
+# Центральной предельной теореме не удовлетворяет распределение 
+# Коши, так как не имеет конечного матожидания и дисперсии.
+sumCauchy <- function(n) {
+  tmp <- sapply(rep(1000, n), rcauchy)
+  apply(tmp, 1, sum)
+}
+cauchy <- function(n) {
+  data.frame(x = seq(-4, 4, length=1000), 
+             caichy.sum = sumCauchy(5)) %>%
+    mutate(y.norm = dnorm(x)) %>%
+    ggplot() + geom_smooth(aes(x = x, y = y.norm)) + 
+    geom_density(aes(x = caichy.sum)) + xlim(-4, 4)
+}
+# Заметим, что получаемое распределение не имеет форму, 
+# похожую на форму нормального распределения.
+cauchy(1)
+cauchy(10)
+cauchy(100)
+```
+
+```{r}
+# Функция генерирует 1000 случайных нормированных величин
+# из n числа случайных величин распределения distF с 
+# математическим ожиданием E и дисперсией D.
+normalizedDistributon <- function(distF, n, E, D, prob = NA, size = NA) {
+  if(is.na(size)) 
+    tmp <- sapply(rep(1000, n), distF)
+  else 
+    tmp <- sapply(rep(1000, n), distF, size, prob)
+  return((apply(tmp, 1, sum) - n * E) / sqrt(n * D)) 
+}
+
+# Сравнив экспоненциальное, биномиальное, геометрическое распределение и 
+# распределение Пуассона, лучше всего демонстрируют разницу в скорости сходимости
+# к нормальному распределению первые два.
+comparisonDistributon <- function(n) {
+  data.frame(x = seq(-4, 4, length=1000), 
+             exp.norm = normalizedDistributon(rexp, n, 1, 1),
+             binom.norm = normalizedDistributon(rbinom, n, 0.1, 0.099, 0.01, 10)) %>% 
+    mutate(y.norm = dnorm(x)) %>%
+    ggplot() + geom_smooth(aes(x = x, y = y.norm)) + 
+    geom_density(aes(x = exp.norm, colour = "red"), show.legend = FALSE) +
+    geom_density(aes(x = binom.norm))
+}
+
+# Заметим, что экспоненциальное распределение сходится
+# к нормальному быстрее чем биномиальное.
+comparisonDistributon(1)
+comparisonDistributon(5)
+comparisonDistributon(10)
+comparisonDistributon(50)
+```

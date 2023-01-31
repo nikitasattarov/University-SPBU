@@ -1,0 +1,100 @@
+\begin{thebibliography}{10}
+\def\selectlanguageifdefined#1{
+\expandafter\ifx\csname date#1\endcsname\relax
+\else\selectlanguage{#1}\fi}
+\providecommand*{\href}[2]{{\small #2}}
+\providecommand*{\url}[1]{{\small #1}}
+\providecommand*{\BibUrl}[1]{\url{#1}}
+\providecommand{\BibAnnote}[1]{}
+\providecommand*{\BibEmph}[1]{#1}
+\ProvideTextCommandDefault{\cyrdash}{\iflanguage{russian}{\hbox
+  to.8em{--\hss--}}{\textemdash}}
+\providecommand*{\BibDash}{\ifdim\lastskip>0pt\unskip\nobreak\hskip.2em plus
+  0.1em\fi
+\cyrdash\hskip.2em plus 0.1em\ignorespaces}
+\renewcommand{\newblock}{\ignorespaces}
+
+\bibitem{weisstein2000cubature}
+\selectlanguageifdefined{english}
+\BibEmph{Weisstein~E.~W.} Cubature~// \BibEmph{https://mathworld. wolfram.
+  com/}. \BibDash
+\newblock 2000.
+
+\bibitem{miller2015earliest}
+\selectlanguageifdefined{english}
+\BibEmph{Miller~J. et~al.} Earliest known uses of some of the words of
+  mathematics. \BibDash
+\newblock 2015.
+
+\bibitem{ossendrijver2016ancient}
+\selectlanguageifdefined{english}
+\BibEmph{Ossendrijver~M.} Ancient babylonian astronomers calculated jupiter’s
+  position from the area under a time-velocity graph~// \BibEmph{Science}.
+  \BibDash
+\newblock 2016. \BibDash
+\newblock Vol. 351, no. 6272. \BibDash
+\newblock P.~482--484.
+
+\bibitem{leader2004numerical}
+\selectlanguageifdefined{english}
+\BibEmph{Leader~J.~J.} Numerical analysis and scientific computation. No.
+  Sirsi) i9780201734997. \BibDash
+\newblock 2004.
+
+\bibitem{stroud1971approximate}
+\selectlanguageifdefined{english}
+\BibEmph{Stroud~A.~H.} Approximate calculation of multiple integrals. \BibDash
+\newblock 1971.
+
+\bibitem{briol2015frank}
+\selectlanguageifdefined{english}
+Frank-wolfe bayesian quadrature: Probabilistic integration with theoretical
+  guarantees~/ Fran{\c{c}}ois-Xavier~Briol, Chris~Oates, Mark~Girolami,
+  Michael~A~Osborne~// Advances in Neural Information Processing Systems.
+  \BibDash
+\newblock 2015. \BibDash
+\newblock P.~1162--1170.
+
+\bibitem{barnhill1976philip}
+\selectlanguageifdefined{english}
+\BibEmph{Barnhill~R.~E. et~al.} Philip j. davis and philip rabinowitz, methods
+  of numerical integration~// \BibEmph{Bulletin of the American Mathematical
+  Society}. \BibDash
+\newblock 1976. \BibDash
+\newblock Vol.~82, no.~4. \BibDash
+\newblock P.~538--539.
+
+\bibitem{forsythe1977computer}
+\selectlanguageifdefined{english}
+\BibEmph{Forsythe~G.~E.} Computer methods for mathematical computations.~//
+  \BibEmph{Prentice-Hall series in automatic computation}. \BibDash
+\newblock 1977. \BibDash
+\newblock Vol. 259.
+
+\bibitem{press2007numerical}
+\selectlanguageifdefined{english}
+Numerical recipes 3rd edition: The art of scientific computing~/
+  William~H~Press, Saul~A~Teukolsky, William~T~Vetterling, Brian~P~Flannery.
+  \BibDash
+\newblock Cambridge university press, 2007.
+
+\bibitem{stoer2013introduction}
+\selectlanguageifdefined{english}
+\BibEmph{Stoer~J., Bulirsch~R.} Introduction to numerical analysis. \BibDash
+\newblock Springer Science \& Business Media, 2013. \BibDash
+\newblock Vol.~12.
+
+\bibitem{boyer2011history}
+\selectlanguageifdefined{english}
+\BibEmph{Boyer~C.~B., Merzbach~U.~C.} A history of mathematics. \BibDash
+\newblock John Wiley \& Sons, 2011.
+
+\bibitem{eves1990introduction}
+\selectlanguageifdefined{english}
+\BibEmph{Eves~H.} An introduction to the history of mathematics, saunders
+  series~// \BibEmph{USA: Cengage Learning. ISBN}. \BibDash
+\newblock 1990. \BibDash
+\newblock Vol.~13. \BibDash
+\newblock P.~978--0030295584.
+
+\end{thebibliography}

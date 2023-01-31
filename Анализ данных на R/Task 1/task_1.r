@@ -1,0 +1,46 @@
+library("dplyr")
+library("lubridate")
+
+# Use information about only self-employed people.
+# Convert amount of months applicant living at his/her current address to days.
+# Add column with income per family member.
+# Define my own criterion of income level, and split data according to levels of this criterion.
+now <- as.Date("2000-01-01")
+df <- read.table("https://www.statmod.ru/wiki/_media/study:fall2020:dataprog:creditcard.txt", sep=";", header=TRUE) %>% 
+  filter(selfemp == "yes") %>%
+  mutate(days = as.numeric(now - (now %m-% months(months))),
+         incomePerFamilyMember = income / (dependents + 1), 
+         incomeLevel = case_when(
+           incomePerFamilyMember < quantile(incomePerFamilyMember, probs=0.25) ~ "low",
+           incomePerFamilyMember < quantile(incomePerFamilyMember, probs=0.50) ~ "averageLow",
+           incomePerFamilyMember < quantile(incomePerFamilyMember, probs=0.75) ~ "averageHigh",
+           TRUE ~ "high"
+         ))
+
+# Print information about dataset.
+file.create("task_1.txt", showWarnings = TRUE)
+output <-file("task_1.txt")
+# Print average amount of dependents for people don't own their home.
+write("Average amount of dependents for people don't own their home:", file="task_1.txt")
+write((filter(df, owner == "no") %>% summarise(meanDependents = mean(dependents)))$meanDependents, 
+      file="task_1.txt", append=TRUE)
+# Print average age in each income groups
+write("Average age in each income groups:", file="task_1.txt", append=TRUE)
+write.table(df %>% group_by(incomeLevel) %>% summarise(averageAge = mean(age)), 
+            file = "task_1.txt", sep = ";", append=TRUE, row.names=FALSE, col.names=FALSE)
+# Print top 5 youngest and eldest people, whose application was declined.
+write("Top 5 youngest people, whose application was declined: ", 
+      file = "task_1.txt", append=TRUE)
+write.table(filter(df, card == "no") %>% slice_min(order_by = age, n = 5), 
+            file = "task_1.txt", sep = ";", append=TRUE)
+write("Top 5 eldest people, whose application was declined: ", file = "task_1.txt", append=TRUE)
+write.table(filter(df, card == "no") %>% slice_max(order_by = age, n = 5), 
+            file = "task_1.txt", sep = ";", append=TRUE)
+# Print average number of major CCs held for people with top 10 income.
+write("Average number of major CCs held for people with top 10 income: ", 
+      file = "task_1.txt", append=TRUE)
+write((arrange(df, income) %>% tail(10))$majorcards %>% mean(), 
+      file = "task_1.txt", append=TRUE)
+
+close(output)
+

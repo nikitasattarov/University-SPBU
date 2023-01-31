@@ -1,0 +1,113 @@
+\begin{thebibliography}{10}
+\def\selectlanguageifdefined#1{
+\expandafter\ifx\csname date#1\endcsname\relax
+\else\selectlanguage{#1}\fi}
+\providecommand*{\href}[2]{{\small #2}}
+\providecommand*{\url}[1]{{\small #1}}
+\providecommand*{\BibUrl}[1]{\url{#1}}
+\providecommand{\BibAnnote}[1]{}
+\providecommand*{\BibEmph}[1]{#1}
+\ProvideTextCommandDefault{\cyrdash}{\iflanguage{russian}{\hbox
+  to.8em{--\hss--}}{\textemdash}}
+\providecommand*{\BibDash}{\ifdim\lastskip>0pt\unskip\nobreak\hskip.2em plus
+  0.1em\fi
+\cyrdash\hskip.2em plus 0.1em\ignorespaces}
+\renewcommand{\newblock}{\ignorespaces}
+
+\bibitem{Kelbert}
+\selectlanguageifdefined{russian}
+\BibEmph{Кельберт~М.~Я., Сухов~Ю.~М.} Вероятность
+  и статистика в примерах и задачах. \BibDash
+\newblock 2007.
+
+\bibitem{markov}
+\selectlanguageifdefined{russian}
+\BibEmph{Марков~А.А.} Распространение закона
+  больших чисел на величины, зависящие друг
+  от друга~// \BibEmph{Известия
+  Физико-математического общества при
+  Казанском университете}. \BibDash
+\newblock 1906. \BibDash
+\newblock {С.}~135--156.
+
+\bibitem{prohorov}
+\selectlanguageifdefined{russian}
+\BibEmph{А.В.~Прохоров}. Маркова цепь~//
+  \BibEmph{Большая российская энциклопедия}.
+  \BibDash
+\newblock 2004. \BibDash
+\newblock {С.}~35.
+
+\bibitem{kemeny}
+\selectlanguageifdefined{english}
+\BibEmph{Kemeny~John~G, Snell~James~Laurie}. Finite markov chains,
+  undergraduate texts in mathematics. \BibDash
+\newblock 1976.
+
+\bibitem{chzhun}
+\selectlanguageifdefined{russian}
+\BibEmph{Чжун~К.} Однородные цепи Маркова. \BibDash
+\newblock Мир, 1964.
+
+\bibitem{nummelin}
+\selectlanguageifdefined{russian}
+\BibEmph{Нуммелин~Э.} Общие неприводимые цепи
+  Маркова и неотрицательные операторы: пер.
+  с англ. \BibDash
+\newblock Мир, 1989.
+
+\bibitem{morimoto}
+\selectlanguageifdefined{english}
+\BibEmph{Morimoto~Tetsuzo}. Markov processes and the H-theorem~//
+  \BibEmph{Journal of the Physical Society of Japan}. \BibDash
+\newblock 1963. \BibDash
+\newblock Vol.~18, no.~3. \BibDash
+\newblock P.~328--331.
+
+\bibitem{yaglom}
+\selectlanguageifdefined{russian}
+\BibEmph{Яглом~А.~М., Яглом~И.} Вероятность и
+  информация. \BibDash
+\newblock Рипол Классик, 1960.
+
+\bibitem{kullback}
+\selectlanguageifdefined{english}
+\BibEmph{Kullback~Solomon}. Information theory and statistics. \BibDash
+\newblock Courier Corporation, 1997.
+
+\bibitem{burg}
+\selectlanguageifdefined{english}
+\BibEmph{Burg~John~Parker}. The relationship between maximum entropy spectra
+  and maximum likelihood spectra~// \BibEmph{Geophysics}. \BibDash
+\newblock 1972. \BibDash
+\newblock Vol.~37, no.~2. \BibDash
+\newblock P.~375--376.
+
+\bibitem{tsallis}
+\selectlanguageifdefined{english}
+\BibEmph{Tsallis~Constantino}. Possible generalization of Boltzmann-Gibbs
+  statistics~// \BibEmph{Journal of statistical physics}. \BibDash
+\newblock 1988. \BibDash
+\newblock Vol.~52, no. 1-2. \BibDash
+\newblock P.~479--487.
+
+\bibitem{rudoy}
+\selectlanguageifdefined{russian}
+\BibEmph{Рудой~Ю.~Г.} Обобщенная информационная
+  энтропия и неканоническое распределение
+  в равновесной статистической механике~//
+  \BibEmph{Теоретическая и математическая
+  физика}. \BibDash
+\newblock 2003. \BibDash
+\newblock Т. 135, {№}~1. \BibDash
+\newblock {С.}~3--54.
+
+\bibitem{gorban}
+\selectlanguageifdefined{english}
+\BibEmph{Gorban~Alexander~N, Gorban~Pavel~A, Judge~George}. Entropy: the Markov
+  ordering approach~// \BibEmph{Entropy}. \BibDash
+\newblock 2010. \BibDash
+\newblock Vol.~12, no.~5. \BibDash
+\newblock P.~1145--1193.
+
+\end{thebibliography}

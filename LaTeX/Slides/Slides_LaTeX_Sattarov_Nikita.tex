@@ -1,0 +1,159 @@
+\documentclass[pdf, 10pt, unicode]{beamer}
+\setbeamertemplate{page number in head/foot}[totalframenumber]
+
+\usetheme[numbers,totalnumbers,compress, nologo]{Statmod}
+\usefonttheme[onlymath]{serif}
+\setbeamertemplate{navigation symbols}{}
+
+\usepackage[T2A]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[russian]{babel}
+
+\usepackage{graphicx}
+\usepackage[style=authoryear-ibid,backend=biber]{biblatex}
+\usepackage{amssymb}
+\usepackage{amsthm}
+
+\usepackage{lipsum}
+
+
+
+\usepackage{beamerthemesplit}
+\setbeamerfont{institute}{size=\normalsize}
+\setbeamercovered{transparent}
+
+\newcommand{\ds}{\displaystyle}
+
+\title{Применение цепей Маркова в анализе данных}
+
+\author{ Саттаров Никита Дмитриевич, группа 19.Б04 }
+
+
+\institute{
+	Санкт-Петербургский Государственный Университет \\
+	Математико-механический факультет \\
+	Кафедра статистического моделирования \\
+	
+	\vspace{0.5cm}
+	
+	Научный руководитель~--- к.ф.-м.н. Н.Э. Голяндина\\
+}
+
+ \date{
+	Санкт-Петербург\\
+	2021г.
+}
+
+\begin{document}
+	\maketitle
+	
+	
+	
+	
+	\begin{frame}\frametitle{Введение}
+		Имеем таблицу данных:
+		\begin{table}[h]
+			\begin{center}
+				\begin{tabular}{|c|c|c|}
+					\hline
+					Номер наблюдения & 		Начальное состояние		& Конечное состояние \\ \hline
+					1 & $s_{start_{1}}$ & $s_{finish_{1}}$ \\ \hline
+					2 & $s_{start_{2}}$ & $s_{finish_{2}}$ \\ \hline
+					3 & $s_{start_{3}}$ & $s_{finish_{3}}$ \\ \hline
+					... & ... & ... 
+				\end{tabular}
+			\end{center}
+		\end{table}
+	$\forall i: \ s_{start_{i}}, s_{finish_{i}} \in S, \ |S| < +\infty$
+	
+	Хотим извлечь из таблицы информацию: вероятность попасть из $s_{i}$ в $s_{j}$, среднее количество шагов, чтобы попасть из $s_{i}$ в $s_{j}$.
+	\end{frame}
+	
+	\begin{frame}\frametitle{Постановка задачи}
+		Последовательность дискретных случайных величин ${\ds \{X_{n}\}_{n \geq 0} }$ называется цепью Маркова, если
+		\begin{equation*}
+			\mathbb{P}(X_{n+1}=i_{n+1} \mid X_{n} = i_{n}, \ldots , X_{0} = i_{0}) = \mathbb{P} (X_{n+1}=i_{n+1} \mid X_{n} = i_{n})
+		\end{equation*}
+			Хотим проверить корректность построения цепи Маркова по таблице данных.
+			 \begin{itemize}
+			 	\item Построим цепь Маркова, которая будет соответствовать вероятностям попасть из состояния $s_i$ в состояние $s_j$ для нашей таблицы данных
+				\item Сгенерируем новые наблюдения на основе вероятностей из цепи Маркова
+				\item Построим новую цепь Маркова по сгенерированным наблюдениям
+				\item Сверим две получившиеся цепи
+		 	\end{itemize}
+
+	\end{frame}
+	
+	
+	\begin{frame}\frametitle{Обыкновенный метод Монте-Карло}
+
+			 $(S_i)_{i \in \mathbb{N}}$~--- последовательность случайных строк из $\mathbb{S}^{(n)}$
+			\begin{itemize}
+			 \item Для любого $N$ имеем несмещённую оценку $p$:
+			\begin{equation*}
+				\hat{p}_{N} = \frac{\#\{S_i : d(S_0, S_i) > a\}}{N}
+			\end{equation*} 
+			
+		\item	 Дисперсия оценки: 
+			\begin{equation*}
+				\mathbb{D}\hat{p}_N = \frac{p(1-p)}{N}
+			\end{equation*}
+			
+		\item	 Относительная ошибка: 
+			\begin{equation*}
+				\frac{\sqrt{\mathbb{D}\hat{p}_{N}}}{p} = \sqrt{\frac{1-p}{Np}}
+			\end{equation*}
+			
+		\end{itemize}	 
+		\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%55
+
+		\begin{frame} \frametitle{Обыкновенный метод Монте-Карло}
+
+		    
+		\begin{itemize}
+		
+		\itemДля относительной ошибки $\varepsilon$ получаем требуемый порядок объема выборки:
+			\begin{equation*}
+				N\sim \frac{1-p}{\varepsilon^2p}
+			\end{equation*}
+        \item Тогда, напрмер, для оценивания некоторой вероятности $p_0\sim 10^{-10}$ с относительной ошибкой $\varepsilon = 0.01$ имеем необходимый объем выборки $N\sim 10^{17}$.
+        
+        \item Актуальна задача уменьшения дисперсии при фиксированном объеме выборки. 
+        \end{itemize}
+
+	\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	\begin{frame}\frametitle{AMS}
+		\textbf{{\large Адаптивное многоуровневое расщепление}}~\parencite{Brehier2014}
+		\begin{itemize}
+			\item Введем $J$ промежуточных уровней: $a_0 = 0 < a_1 < \ldots < a_J = a$ и соответствующие им вероятности: 
+			\begin{equation*}
+				p_j = \mathbb{P}(X > a_j | X > a_{j-1})
+			\end{equation*}
+			\item Малая вероятность $p$ должна удовлетворять равенству:
+			\begin{equation*}
+				p = \prod\limits_{i = 1}^{J}p_i
+			\end{equation*}
+
+		\item Дисперсия будет минимизирована, если $p_1 = \ldots = p_J = p^{1/J}$, поэтому промежуточные уровни определяются так, чтобы выполнялось равенство множителей $p_j$. 
+		\end{itemize}
+	\end{frame}
+	
+	\begin{frame}\frametitle{AMS}
+
+	    \noindentПри попытке применить алгоритм возникли следующие трудности: 
+	    \begin{itemize}
+			\item Необходимо получать условные распределения $\mathcal{L}(X|X > a_i)$. 
+			\item Алгоритм определен и доказан для с.в. $X \in \mathbb{R}$, но рассматриваем $d(S_0, S_1) \in \mathbb{Z}^{+}$. 
+			
+			Поэтому в текущем виде применить его для оценивания малых вероятнстей, связанных со строками, нельзя. Требуется адаптация алгоритма. 
+		\end{itemize}
+
+	\end{frame}
+	
+
+
+	
+\end{document}

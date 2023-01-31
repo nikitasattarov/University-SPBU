@@ -1,0 +1,7 @@
+@article{weisstein2000cubature,
+  title={Cubature},
+  author={Weisstein, Eric W},
+  journal={https://mathworld. wolfram. com/},
+  year={2000},
+  publisher={Wolfram Research, Inc.}
+}
